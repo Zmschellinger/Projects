@@ -4,9 +4,19 @@
 # This program will 1. Ask a user for thier age -> output the age with tabs between the number before and after.
 # Put quotes in a formated string. 
 
+.data
+
+msg:
+  .ascii "What is your age?\n"
+len = . - msg
+
+.text
+
 .global _start
-.section .text
-
 _start:
-
-.section .data
+  mov x0, #1
+  ldr x1, =msg
+  mov x2, #3
+  mov w8, #64
+  svc #0
+  b .
