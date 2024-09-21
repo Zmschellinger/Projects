@@ -1,22 +1,58 @@
+# Program Name : HW4.asm  
 # Creator : Zachary Schellinger
 # EN.605.204.81.FA24
 # Homework for module 4
-# This program will 1. Ask a user for thier age -> output the age with tabs between the number before and after.
-# Put quotes in a formated string. 
+# This program will Ask a user for thier age -> output the age with tabs between the number before and after.
+# The age put in quotes to show that it can be put in a formated string. 
+# Put quotes in a formated string
+
+.text
+.global main
+
+main: 
+  #Save return to os on stack (from textbook)
+  SUB sp, sp, #4
+  STR lr, [sp, #0]
+
+  #Ask user for their age
+  LDR r0, =question
+  BL printf
+
+  # scanf
+  LDR r0, =input
+  LDR r1, =age
+  BL scanf
+
+  # print message
+  LDR r0, =format
+  LDR r1, =age
+  LDR r1, [r1, #0]
+  BL printf
+
+  # Return to OS
+  LDR lr, [sp, #0]
+  ADD sp, sp, #4
+  MOV pc, lr
 
 .data
 
-msg:
-  .ascii "What is your age?\n"
-len = . - msg
+  #question for the user
+  question; .asciz "Please enter your age: "
 
-.text
+  #Format to read as an integer
+  input: .asciz "%d"
 
-.global _start
-_start:
-  mov x0, #1
-  ldr x1, =msg
-  mov x2, #3
-  mov w8, #64
-  svc #0
-  b .
+  #Format of output
+  #Should have a tab before and after each character
+  format: .asciz "Your age is \"\t %s \t\". \n"
+
+  #Reserves space in mem for age
+  age: .word 0
+
+
+
+
+
+
+
+
