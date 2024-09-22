@@ -44,7 +44,7 @@ main:
 
   #Format of output
   #Should have a tab before and after each character
-  format: .asciz "Your age is \"\t %s \t\". \n"
+  format: .asciz "Your age is \"\t %d \t\". \n"
 
   #Reserves space in mem for age
   age: .word 0
