@@ -3,6 +3,7 @@
 # EN.605.204.81.FA24
 # Homework for module 5
 # This program converts Fahrenheit tempurture to Celsius. 
+.text
 .global main
 main: 
   #Save return to os on stack (from textbook)
@@ -49,6 +50,3 @@ main:
   format: .asciz "Your tempeture in Fahrenheit is %f \n"
   #Reserves space in mem for temp
   temp: .word 0
-
-.text
-
