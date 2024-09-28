@@ -16,21 +16,22 @@ main:
 
   # Read temp 
   LDR r0, =input
-  LDR r1, =temp
+  LDR r1, =num
   BL scanf
 
-  #multiply by 9
-  MOV r2, #9
-  MUL r1, r2, r1
-  #divide by 5
-  MOV r2, #5
-  SDIV r1, r2, r1
-  #add 32
+  #Convert F to C
+  #subtract 32
+  LDR r1, =num
   MOV r2, #32
-  VADD r1, r2, r1
+  FSUB r1, r1, r2  
+  #multiply by 5
+  MOV r2, #5
+  MUL r1, r2, r1
+  #divide by 9
+  MV r2, 9
+  SDIV r1, r2, r1
 
   # print message
-  MOV r1, r0
   LDR r0, =format
   LDR r1, [r1, #0]
   BL printf
@@ -41,12 +42,11 @@ main:
   MOV pc, lr
   
 .data
-
   #question for the user
-  question; .asciz "Please enter your tempeture in Celcius: "
+  question: .asciz "Please enter your tempeture in Celcius: "
   #Format to read as a floating point integer
   input: .asciz "%f"
   #Format of output
   format: .asciz "Your tempeture in Fahrenheit is %f \n"
   #Reserves space in mem for temp
-  temp: .word 0
+  num: .word 0
