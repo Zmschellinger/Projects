@@ -3,6 +3,7 @@
 # EN.605.204.81.FA24
 # Homework for module 5
 # This program reads an input then conducts a left logical shift and add in order to multiply a number by 10
+.text
 .global main
 main: 
   #Save return to os on stack (from textbook)
@@ -38,9 +39,8 @@ main:
   MOV pc, lr
 
 .data
-
   #question for the user
-  question; .asciz "Please enter a number: "
+  question: .asciz "Please enter a number: "
   #Format to read as an integer
   input: .asciz "%d"
   #Format of output
