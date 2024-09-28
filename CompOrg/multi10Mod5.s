@@ -3,7 +3,6 @@
 # EN.605.204.81.FA24
 # Homework for module 5
 # This program reads an input then conducts a left logical shift and add in order to multiply a number by 10
-.text
 .global main
 
 main: 
@@ -21,8 +20,10 @@ main:
   BL scanf
   
   #mulitply by 10
-  
-  
+  LDR r0, =num
+  LDR r0, [r0, #0]
+  BL multi
+
   # print message
   LDR r0, =format
   LDR r1, =num
@@ -37,14 +38,19 @@ main:
 .data
 
   #question for the user
-  question; .asciz "Please enter your age: "
+  question; .asciz "Please enter a number: "
 
   #Format to read as an integer
   input: .asciz "%d"
 
   #Format of output
   #Should have a tab before and after each character
-  format: .asciz "Your age is \"\t %d \t\". \n"
+  format: .asciz "Your number multiplied by 10 is %d"
 
   #Reserves space in mem for age
-  age: .word 0
+  num: .word 0
+
+.txt
+#multi function
+mulit:
+  
