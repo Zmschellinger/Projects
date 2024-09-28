@@ -43,7 +43,7 @@ main:
   
 .data
   #question for the user
-  question: .asciz "Please enter your tempeture in Celcius: "
+  question: .asciz "Please enter your tempeture in fahrenheit: "
   #Format to read as a floating point integer
   input: .asciz "%f"
   #Format of output
