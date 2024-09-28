@@ -21,13 +21,10 @@ main:
   # multiply num
   # Left logical shift 3 times, then add the result of 1 left logical shift. 
   # num stored in r0
-****
+  LDR r0, =num
   MOV r3, r0, LSL #3
   MOV r4, r0, LSL #1
   ADD r0, r3, r4
-****
-
-
   
   # print message
   LDR r0, =format
