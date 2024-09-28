@@ -21,9 +21,10 @@ main:
   BL scanf
 
   #convert to negative
-  
-
-
+  #ones complement using MVN
+  MVN r1, r1
+  #add 
+  ADD r1, #1
   
   # print message
   LDR r0, =format
