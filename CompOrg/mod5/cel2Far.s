@@ -4,7 +4,7 @@
 # Homework for module 5
 # This program converts Celsius temperture to Fahrenheit.
 # Takes the input celsius and uses the formual C = (F- 32) * (5/9) or C = ((F * 9)/5)+32
-
+.text
 .global main
 main: 
   #Save return to os on stack (from textbook)
@@ -17,16 +17,22 @@ main:
 
   # Read temp 
   LDR r0, =input
-  LDR r1, =temp2conv
+  LDR r1, =num
   BL scanf
 
-  #convert to fahrenheit, return in r1
-  LDR r0, =temp2conv
-  LDR r0, [r0, #0]
-  BL cels2fahr
+  #Convert F to C
+  #subtract 32
+  LDR r1, =num
+  MOV r2, #32
+  FSUB r1, r1, r2  
+  #multiply by 5
+  MOV r2, #5
+  MUL r1, r2, r1
+  #divide by 9
+  MV r2, 9
+  SDIV r1, r2, r1
 
   # print message
-  MOV r1, r0
   LDR r0, =format
   LDR r1, [r1, #0]
   BL printf
@@ -37,31 +43,11 @@ main:
   MOV pc, lr
   
 .data
-
   #question for the user
-  question; .asciz "Please enter your tempeture in Celcius: "
+  question: .asciz "Please enter your tempeture in Celcius: "
   #Format to read as a floating point integer
   input: .asciz "%f"
   #Format of output
   format: .asciz "Your tempeture in Fahrenheit is %f \n"
   #Reserves space in mem for temp
-  temp2conv: .word 0
-
-.text
-
-#function to convert celsius to fahrenheit
-cels2fahr:
-  #multiply by 9
-  MOV r2, #9
-  MUL r1, r2, r1
-  #divide by 5
-  MOV r2, #5
-  SDIV r1, r2, r1
-  #add 32
-  MOV r2, #32
-  VADD r1, r2, r1
-#end function
-
-
-
-
+  num: .word 0
