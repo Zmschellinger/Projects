@@ -4,47 +4,31 @@
 # Homework for module 5
 # This program converts Celsius temperture to Fahrenheit.
 # Takes the input celsius and uses the formual C = (F- 32) * (5/9) or C = (F - 32) * 1.8
-.text
-
-#function to convert celsius to fahrenheit
-cels2fahr:
-  SUB sp, sp, #4
-  STR lr, [sp, #0]
-
-  #multiply by 9
-  MOV r3, #9
-  MUL r0, r1, r3
-  #divide by 5
-  MOV r1, #5
-  UDIV r0, r1, r3
-  #add 32
-
-
 
 .global main
-
 main: 
   #Save return to os on stack (from textbook)
   SUB sp, sp, #4
   STR lr, [sp, #0]
 
-  #Ask user for the temp they want converted
+  #Prompt user for C temp
   LDR r0, =question
   BL printf
 
-  # Read celcius 
+  # Read temp 
   LDR r0, =input
-  LDR r1, =temp
+  LDR r1, =temp2conv
   BL scanf
 
-  #convert to farh, return in r1
-  
+  #convert to fahrenheit, return in r1
+  LDR r0, =temp2conv
+  LDR r0, [r0, #0]
   BL cels2fahr
 
   
   # print message
+  MOV r1, r0
   LDR r0, =format
-  LDR r1, =temp
   LDR r1, [r1, #0]
   BL printf
 
@@ -66,4 +50,22 @@ main:
   format: .asciz "Your tempeture in Fahrenheit is %d \n"
 
   #Reserves space in mem for temp
-  temp: .word 0
+  temp2conv: .word 0
+
+.text
+#function to convert celsius to fahrenheit
+cels2fahr:
+  #multiply by 9
+  MOV r2, #9
+  MUL r1, r2, r1
+  #divide by 5
+  MOV r2, #5
+  SDIV r1, r2, r1
+  #add 32
+  MOV r2, #32
+  ADD r1, r2, r1
+
+
+
+
+
