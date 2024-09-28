@@ -26,14 +26,15 @@ main:
   LDR r1, =inch
   BL scanf
 
-  # convert feet to inches
-
+  # convert feet to inch
+  LDR r0, =feet
+  LDR r4, #12
+  MUL r3, r0, r4
   # add converted feet to stored inches 
-
-  
+  LDR r1, =inch
+  ADD r1, r1, r3
   # print message
   LDR r0, =format
-  LDR r1, =inch
   LDR r1, [r1, #0]
   BL printf
 
