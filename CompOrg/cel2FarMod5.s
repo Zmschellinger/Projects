@@ -3,7 +3,7 @@
 # EN.605.204.81.FA24
 # Homework for module 5
 # This program converts Celsius temperture to Fahrenheit.
-# Takes the input celsius and uses the formual C = (F- 32) * (5/9) or C = (F - 32) * 1.8
+# Takes the input celsius and uses the formual C = (F- 32) * (5/9) or C = ((F * 9)/5)+32
 
 .global main
 main: 
@@ -25,7 +25,6 @@ main:
   LDR r0, [r0, #0]
   BL cels2fahr
 
-  
   # print message
   MOV r1, r0
   LDR r0, =format
@@ -36,23 +35,20 @@ main:
   LDR lr, [sp, #0]
   ADD sp, sp, #4
   MOV pc, lr
-
+  
 .data
 
   #question for the user
   question; .asciz "Please enter your tempeture in Celcius: "
-
   #Format to read as a floating point integer
-  input: .asciz "%d"
-
+  input: .asciz "%f"
   #Format of output
-  #Should have a tab before and after each character
-  format: .asciz "Your tempeture in Fahrenheit is %d \n"
-
+  format: .asciz "Your tempeture in Fahrenheit is %f \n"
   #Reserves space in mem for temp
   temp2conv: .word 0
 
 .text
+
 #function to convert celsius to fahrenheit
 cels2fahr:
   #multiply by 9
@@ -63,8 +59,8 @@ cels2fahr:
   SDIV r1, r2, r1
   #add 32
   MOV r2, #32
-  ADD r1, r2, r1
-
+  VADD r1, r2, r1
+#end function
 
 
 
