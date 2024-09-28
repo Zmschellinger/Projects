@@ -20,17 +20,17 @@ main:
   LDR r1, =num
   BL scanf
 
-  #Convert F to C
-  #subtract 32
+  #Convert C to F
+  #Mulitply by 9
   LDR r1, =num
-  MOV r2, #32
-  FSUB r1, r1, r2  
-  #multiply by 5
+  MOV r2, #9
+  MUL r1, r1, r2
+  #Divide by 5
   MOV r2, #5
-  MUL r1, r2, r1
-  #divide by 9
-  MV r2, 9
   SDIV r1, r2, r1
+  #add 32
+  MOV r2, #32
+  FADD r1, r2, r1 
 
   # print message
   LDR r0, =format
