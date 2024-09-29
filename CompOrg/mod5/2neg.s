@@ -22,16 +22,17 @@ main:
 
   #convert to negative
   #ones complement using MVN
-  MVN r1, r1
+  LDR r0, =num
+  LDR r0, [r0, #0]
+  MVN r0, r0
   #add 
-  ADD r1, #1
+  ADD r0, r0, #1
   
   # print message
+  MOV r1, r0
   LDR r0, =format
-  LDR r1, =num
-  LDR r1, [r1, #0]
   BL printf
-
+  
   # Return to OS
   LDR lr, [sp, #0]
   ADD sp, sp, #4
