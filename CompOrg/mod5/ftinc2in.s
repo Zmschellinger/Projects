@@ -15,27 +15,33 @@ main:
   #Ask user for ft and scan/store
   LDR r0, =prompt1
   BL printf
-  LDR r0, =input1
+  
+  LDR r0, =input
   LDR r1, =feet
   BL scanf
+  MOV r9, r1
 
   #Ask user for inch and scan/store
   LDR r0, =prompt2
   BL printf
-  LDR r0, =input2
+  
+  LDR r0, =input
   LDR r1, =inch
   BL scanf
+  MOV r10, r1
 
   # convert feet to inch
   LDR r0, =feet
-  LDR r4, #12
-  MUL r3, r0, r4
+  LDR r0, [r0, #0]
+  ADD r4, r4, #12
+  MUL r0, r0, r4
   # add converted feet to stored inches 
   LDR r1, =inch
-  ADD r1, r1, r3
-  # print message
-  LDR r0, =format
   LDR r1, [r1, #0]
+  ADD r0, r0, r1
+  # print message
+  MOV r1, r0
+  LDR r0, =format
   BL printf
 
   # Return to OS
