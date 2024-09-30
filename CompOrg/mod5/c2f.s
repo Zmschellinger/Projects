@@ -19,22 +19,24 @@ main:
   LDR r0, =input
   LDR r1, =num
   BL scanf
+  MOV r9, r1
 
   #Convert C to F
   #Mulitply by 9
-  LDR r1, =num
-  MOV r2, #9
-  MUL r1, r1, r2
+  LDR r0, =num
+  LDR r0, [r0, #0]
+  MOV r1, #9
+  MUL r0, r0, r1
   #Divide by 5
-  MOV r2, #5
-  SDIV r1, r2, r1
+  MOV r1, #5
+  BL __aeabi_idiv
   #add 32
-  MOV r2, #32
-  FADD r1, r2, r1 
+  MOV r1, #32
+  FADD r0, r0, r1 
 
   # print message
+  MOV r1, r0
   LDR r0, =format
-  LDR r1, [r1, #0]
   BL printf
 
   # Return to OS
