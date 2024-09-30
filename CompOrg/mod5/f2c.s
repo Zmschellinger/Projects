@@ -21,19 +21,20 @@ main:
 
   #Convert F to C
   #subtract 32
-  LDR r1, =num
-  MOV r2, #32
-  FSUB r1, r1, r2  
+  LDR r0, =num
+  LDR r0, [r0, #0]
+  MOV r1, #32
+  SUB r0, r0, r1  
   #multiply by 5
-  MOV r2, #5
-  MUL r1, r2, r1
+  MOV r1, #5
+  MUL r0, r1, r0
   #divide by 9
-  MV r2, 9
-  SDIV r1, r2, r1
+  MV r1, 9
+  BL __aeabi_idiv
 
   # print message
+  MOV r1, r0
   LDR r0, =format
-  LDR r1, [r1, #0]
   BL printf
 
   # Return to OS
@@ -45,8 +46,8 @@ main:
   #question for the user
   question: .asciz "Please enter your tempeture in fahrenheit: "
   #Format to read as a floating point integer
-  input: .asciz "%f"
+  input: .asciz "%d"
   #Format of output
-  format: .asciz "Your tempeture in Fahrenheit is %f \n"
+  format: .asciz "Your tempeture in Fahrenheit is %d \n"
   #Reserves space in mem for temp
   num: .word 0
