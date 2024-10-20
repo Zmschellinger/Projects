@@ -12,7 +12,7 @@
 .global miles2kilometer
 .global kph
 .global cToF
-.global inchesToFt
+.global inchesToFeet
 
 
 # Miles2Kilometer --
