@@ -42,10 +42,11 @@ main:
 	# Convert to KPH
 	MOV r0, r9
 	BL kph
-	MOV r1, r0
+	MOV r4, r0
 
 	# Print output 
 	LDR r0, =f1format
+ 	MOV r1, r4
 	BL printf
 
 	# -----------------------------------------------
