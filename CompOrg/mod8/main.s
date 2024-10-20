@@ -130,7 +130,7 @@ main:
 	# Function 3 prompts
 	f3prompt1: .asciz "Please enter a number for inches: "
 	# Function 3 input format
-	f3input1: .asciz "%d'
+	f3input1: .asciz "%d"
 
 	# Function 3 output format
 	f3format: .asciz "Your number converted to feet is %d"
