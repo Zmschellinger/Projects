@@ -48,13 +48,13 @@ kph:
   	SUB sp, sp, #4
   	STR lr, [sp, #0]
 
-	# Prepare to use miles2kilometer function by moving r1 value (hours) to temp register
-	MOV r2, r1
+	# Move miles to r0
+	MOV r0, r9
 	# Convert miles to kilometer (result stored in r0)
 	BL miles2kilometer
 
 	# Move hours back to r1
-	MOV r1, r2
+	MOV r1, r10
 
 	# Divide kilometers by hours
 	BL __aeabi_idiv
@@ -73,7 +73,10 @@ cToF:
  	SUB sp, sp, #4
 	STR lr, [sp, #0]
 	#Convert C to F
-	#Mulitply by 9
+	# Move celsius value to r0
+ 	MOV r0, r8
+ 	
+ 	#Mulitply by 9
     	MOV r1, #9
   	MUL r0, r0, r1
   	
@@ -84,7 +87,8 @@ cToF:
 	#add 32
   	MOV r1, #32
   	ADD r0, r0, r1
-	# Return to OS
+	
+ 	# Return to OS
   	LDR lr, [sp, #0]
   	ADD sp, sp, #4
   	MOV pc, lr
