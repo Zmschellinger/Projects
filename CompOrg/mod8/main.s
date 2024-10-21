@@ -28,7 +28,9 @@ main:
 	LDR r0, =f1input1
 	LDR r1, =miles
 	BL scanf
-	MOV r9, r1
+ 	# save miles in r9
+	LDR r1, = miles
+ 	LDR r9, [r1, #0]
 
 	# Ask user for hours
 	LDR r0, =f1prompt2
@@ -38,15 +40,16 @@ main:
 	LDR r0, =f1input2
 	LDR r1, =hours
 	BL scanf
+ 	# save hours in r10
+ 	LDR r1, =hours
+  	LDR r10, [r1, #0]
 
 	# Convert to KPH
-	MOV r0, r9
 	BL kph
-	MOV r4, r0
+ 	MOV r1, r0
 
 	# Print output 
 	LDR r0, =f1format
- 	MOV r1, r4
 	BL printf
 
 	# -----------------------------------------------
@@ -62,7 +65,8 @@ main:
 	LDR r0, =f2input1
 	LDR r1, =Celsius
 	BL scanf
-
+	LDR r1, =Celsius
+ 	LDR r8, [r1, #0]
 	# Convert Celsius to Fahrenheit
 	BL cToF
 	MOV r1, r0
@@ -83,7 +87,9 @@ main:
 	LDR r0, =f3input1
 	LDR r1, =inches 
 	BL scanf
-
+	LDR r1, =inches
+ 	LDR r7, [r1, #0]
+  
 	# Convert inches to feet
 	BL inchesToFeet
 	MOV r1, r0
