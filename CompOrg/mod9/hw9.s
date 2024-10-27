@@ -16,7 +16,7 @@
 	# inputs 1 char from user  	
  	# output in r0
 	
- # Ask user for input	
+	# Ask user for input	
  	LDR r0, =f1prompt1	
 	BL printf		
  	
@@ -24,7 +24,7 @@
 	LDR r0, =f1input1	
  	LDR r1, =usrInput		
 	
- # Save input	
+ 	# Save input	
  	LDR r1, =usrInput	
 	LDR r9, [r1, #0]		
  
@@ -35,7 +35,7 @@
 	# If true, print prompt 1 	
 	LDR r0, =f1format1	
 	
- # If false, print prompt 2	
+ 	# If false, print prompt 2	
  	LDR r0, =f1format2		
  
 	# -----------------------------------------------	
@@ -45,22 +45,29 @@
  	# Determine if average is <0 or >100, if so print error	
 	# Else, calculate a grade as 90-100 as A, 80-90 as B, 70-80 as C, else F
 	# Ask user for input1 	
- 	LDR r0, =f2prompt1	BL printf		
+ 	LDR r0, =f2prompt1	
+  	BL printf		
  	
 	# Read user input 	
-	LDR r0, =f2input1		LDR r1, =sName	BL scanf		
+	LDR r0, =f2input1		
+ 	LDR r1, =sName	BL scanf		
 	
  	# Save input	
- 	LDR r1, =sName	LDR r8, [r1, #0]		
+ 	LDR r1, =sName	
+  	LDR r8, [r1, #0]		
  	
 	# Ask user for input 2	
-	LDR r0, =f2prompt2	BL printf
+	LDR r0, =f2prompt2	
+ 	BL printf
 	
  	# Read user input	
- 	LDR r0, =f2input2	LDR r1, =sAvg	BL scanf		
+ 	LDR r0, =f2input2	
+  	LDR r1, =sAvg	
+   	BL scanf		
  	
 	# Save input	
-	LDR r1, =sAvg	LDR r7, [r1, #0]
+	LDR r1, =sAvg	
+ 	LDR r7, [r1, #0]
 	
  	# Determine if grade is valid
 	
@@ -78,20 +85,30 @@
  	# Ask user for input1 
 	
  	# Read user input 
-	
- 	# Save input		
+	LDR r0, =f3input1	
+ 	LDR r1, =usrInput	
  	
+  	# Save input		
+ 	LDR r1, =usrInput	
+	LDR r6, [r1, #0]
 	# Ask user for input 2		
 	
  	# Read user input		
- 	
-	# Save input
-	
- 	# Ask user for input 3		
- 	
-	# Read user input
+ 	LDR r0, =f3input2	
+ 	LDR r1, =usrInput	
 	
  	# Save input
+	LDR r1, =usrInput	
+	LDR r5, [r1, #0]
+ 	
+  	# Ask user for input 3		
+ 	# Read user input
+  	LDR r0, =f3input3	
+ 	LDR r1, =usrInput	
+	
+ 	# Save input
+ 	LDR r1, =usrInput	
+	LDR r4, [r1, #0]
 	
  	# Determine largest value (compare 1&2, then compare to 3)?
 	
