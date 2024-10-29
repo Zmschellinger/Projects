@@ -7,7 +7,8 @@
 # 2. Implement a grading program # 3. A function that finds the largest of 3 values. 
 .text
 .global main
-	main:
+
+main:
 	# Save return to os on stack (from textbook) 	
  	SUB sp, sp, #4 	
 	STR lr, [sp, #0]
@@ -29,15 +30,11 @@
 	LDR r9, [r1, #0]		
  
 	# logically determine if user input is an alphabetic character
-	
- 	# non-logically determine if user input is an alphabetic character		
- 
-	# If true, print prompt 1 	
-	LDR r0, =f1format1	
-	
- 	# If false, print prompt 2	
- 	LDR r0, =f1format2		
- 
+	BL Logical_Check
+
+ 	# Non logically check if user input is an alphabetic character
+	BL Non_logical_Check
+
 	# -----------------------------------------------	
 	# Function 2 - Implement a grading program	
  	# input 1 - student name, input 2 - student average	
