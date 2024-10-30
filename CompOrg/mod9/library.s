@@ -18,9 +18,9 @@
 # Output will be saved in r1
 Logical_Check:
 
-  # Save return to os on stack (from textbook)
-  SUB sp, sp, #4
-  STR lr, [sp, #0]
+  	# Save return to os on stack (from textbook)
+  	SUB sp, sp, #4
+  	STR lr, [sp, #0]
 
 	# Move user input to r1
 	MOV r1, r9
@@ -32,10 +32,6 @@ Logical_Check:
 	CMP r1, #65
 	BCC Invalid
 	B Valid
-	# Return to OS
-	LDR lr, [sp, #0]
- 	ADD sp, sp, #4
- 	MOV pc, lr
 
 Logical_lowercase:
 	CMP r1, #122
@@ -58,30 +54,19 @@ Non_Logical_Check:
 	# subtract Z from user input, if negative, check to see if lowercase
 	SUB r2, r1, #90
 	CMP r2, #0
-	# If greater than 0, the number might be a lowercase letter
-	BGT Non_Logical_Lowercase
-	# If not greater then 0, the number might be captial
-	# Subtract A from user input, if negative, input is invalid
-	SUB r2, r1, #65
-	CMP r2, #0
-	BLT Invalid
-	# if not invalid, then it must be valid
-	B Valid
-
-	# Return to OS
-	LDR lr, [sp, #0]
- 	ADD sp, sp, #4
- 	MOV pc, lr
-
+	# If greater than 0, the number is invalid 
+	BPL Non_Logical_Lowercase
+  	CMP r1, #65
+   	BCC Invalid
+    	B Valid
 
 Non_Logical_Lowercase:
-	# subtract 97 or 'a' from the user input value
-	SUB r2, r1, #97
-	CMP r2, #0
-	BLT Invalid
+	# subtract 122 or 'z' from the user input value
 	SUB r2, r1, #122
 	CMP r2, #0
-	BGT Invalid
+	BPL Invalid
+	CMP r1, #97
+	BCC Invalid
 	B Valid
 
 
