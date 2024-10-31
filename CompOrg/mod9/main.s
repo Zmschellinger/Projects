@@ -26,19 +26,36 @@ main:
 	# Ask user for input
 	LDR r0, =f1prompt1
 	BL printf
+	
 	# Read user input
 	LDR r0, =f1input1
 	LDR r1, =usrInput
+	BL scanf
+	
 	# Save input
 	LDR r1, =usrInput
 	LDR r9, [r1, #0]
+	
+
 	# logically determine if user input is an alphabetic character
-	# Prints output
+	# What does logically mean? Using logical operations such as AND, NOT, OR ETC
+	# This function will also print wither the input is an alphabetic character 
+	
+	# Inform user its doing a logical check
+	LDR r0, =f1prompt2
+	BL printf
+	
 	BL Logical_Check
 
  	# Non logically check if user input is an alphabetic character
 	# Prints output
+	
+	# Inform user its doing a different style check
+	LDR r0, =f1prompt3
+	BL printf
+
 	BL Non_logical_Check
+	
 	# -----------------------------------------------
 	# Function 2 - Implement a grading program
 	# input 1 - student name, input 2 - student average
@@ -49,13 +66,16 @@ main:
 	# Ask user for input1 
 	LDR r0, =f2prompt1
 	BL printf
+	
 	# Read user input 
 	LDR r0, =f2input1	
 	LDR r1, =sName
 	BL scanf
+	
 	# Save input
 	LDR r1, =sName
 	LDR r8, [r1, #0]
+	
 	# Ask user for input 2
 	LDR r0, =f2prompt2
 	BL printf
@@ -64,32 +84,61 @@ main:
 	LDR r0, =f2input2
 	LDR r1, =sAvg
 	BL scanf
+	
 	# Save input
 	LDR r1, =sAvg
 	LDR r7, [r1, #0]
 
 	# Determine if grade is valid
+	# Grade is between 0 and 100
+	MOV r1, #0
+	MOV r0, #0
+	CMP r7, r0
+	MOVGE r0, #1
+
+	MOV r2, #0
+	MOV r0, #100
+	CMP r7, r0
+	MOVLE r2, #1
+
+	AND r1, r1, r2
+	MOV r2, #1
+	CMP r1, r2
+	# Grade is valid
+	BEQ grade_A
+	
+	LDR r0, =f2invalid
+	BL printf
+	B EndIf
+	# ----------------------------------
 	grade_A:
 	MOV r0, #90
 	CMP r7, r0
 	BLT grade_B
+	
 	# Code for if grade is A
 	LDR r0, =f2gradeA
+	
 	# moves students name into r8
 	MOV r1, r8
+	MOV r2, r7
 	BL printf
 	B EndIf
-
+	# ----------------------------------
 	grade_B:
 	MOV r0, #80
 	CMP r7, r0
 	BLT grade_C
+	
 	# Code for if grade is B
 	LDR r0, =f2gradeB
+	
 	# moves students name into r8
 	MOV r1, r8
+	MOV r2, r7
 	BL printf
 	B EndIf
+	# ----------------------------------
 	grade_C:
 	MOV r0, #70
 	CMP r7, r0
@@ -100,22 +149,29 @@ main:
 	MOV r1, r8
 	BL printf
 	B EndIf
-	grade_D:
+	# ----------------------------------
+	grade_D
 	MOV r0, #60
 	CMP r7, r0
 	BLT grade_D
-	# Code for if grade is D
+	
+	 Code for if grade is D
 	LDR r0, =f2gradeD
-	# moves students name into r8
+	
+	#Moves students name into r8
 	MOV r1, r8
 	BL printf
 	B EndIf
 	Else:
 	LDR r0, =f2gradeF
-	# moves students name into r8
+	
+	 moves students name into r8
 	MOV r1, r8
 	BL printf
 	B EndIf
+	
+	not_valid:
+	
 	#continues program
 	EndIf:
 
@@ -179,15 +235,22 @@ main:
 
 .data 
 	# -----------------------------------------------
+	
 	# function 1 prompts
 	f1prompt1: .asciz "Please enter an alphabet character: "
+	f1prompt2: .asciz "Checking your input logically.\n"
+	f1prompt3: .asciz "Checking your input a different way.\n"
+	
 	# function 1 input format
 	f1input1: .asciz "%d"
+	
 	# function 1 output formatting
 	f1format1: .asciz "Your character is an alphabet character\n"
 	f1format2: .asciz "Your character is not an alphabet character\n" 
+	
 	# function 1 space reservation for variables
 	usrInput: .word 0
+	
 	# -----------------------------------------------
 
 	# Function 2 prompts
