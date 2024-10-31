@@ -150,7 +150,7 @@ main:
 	BL printf
 	B EndIf
 	# ----------------------------------
-	grade_D
+	grade_D:
 	MOV r0, #60
 	CMP r7, r0
 	BLT grade_D
@@ -165,7 +165,7 @@ main:
 	Else:
 	LDR r0, =f2gradeF
 	
-	 moves students name into r8
+	# moves students name into r8
 	MOV r1, r8
 	BL printf
 	B EndIf
