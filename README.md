@@ -1,2 +1,2 @@
-# School Work
-This is a respository for all of my school work from Johns Hopkins 
+# Projects
+This is a respository for all of the projects im working on as well as some school work.
