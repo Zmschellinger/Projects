@@ -5,7 +5,7 @@
 # This program will:
 # Prompt user for 2 inputs,
 # input 1 is the multiplier
-# input 2 is the number of addition iterations 
+# input 2 is the number of addition iterations
 # This is done recursively
 
 
@@ -21,42 +21,46 @@ main:
 
         # -----------------------------------------------
 
-	# Ask user for multiplier
-	LDR r0, =prompt1
-	BL printf
+        # Ask user for multiplier
+        LDR r0, =prompt1
+        BL printf
 
-	# read user input
-	LDR r0, =input
-	LDR r1, =in1
-	BL scanf
-	
-	# Save input
-	LDR r1, =in1
-	LDR r9, [r1, #0]
+        # read user input
+        LDR r0, =input
+        LDR r1, =in1
+        BL scanf
 
-	# Ask user for iteration count
-	LDR r0, =prompt2
-	BL printf
+        # Save input
+        LDR r1, =in1
+        LDR r9, [r1, #0]
 
-	# read user input
-	LDR r0, =input
-	LDR r1, =in2
-	BL scanf
-	
-	# Save input
-	LDR r1, =in2
-	LDR r8, [r1, #0]
+        # Ask user for iteration count
+        LDR r0, =prompt2
+        BL printf
 
-	#initiate counter
-	MOV r7, #1 
-	
-	# does the iteration count = 1?
-	# if so print r9
-	CMP r8, r7
-	BEQ eq1
-	
-	# else begin multiplication
-	B multiply
+        # read user input
+        LDR r0, =input
+        LDR r1, =in2
+        BL scanf
+
+        # Save input
+        LDR r1, =in2
+        LDR r8, [r1, #0]
+
+        #initiate counter
+        MOV r7, #1
+
+        # does the iteration count = 1?
+        # if so print r9
+        CMP r8, r7
+        BEQ eq1
+
+
+        # initiate regs
+        MOV r6, r9
+        MOV r7, #1
+        # else begin multiplication
+        B multiply
 
 
 # r6 - result
@@ -66,37 +70,37 @@ main:
 
 multiply:
 
-	# check counter 
-	CMP r7, r8
-	BEQ print
+        # check counter
+        CMP r7, r8
+        BEQ print
 
-	# counter not equal to iteration count
-	ADD r6, r6, r9
-	
-	# increment counter
-	ADD r7, #1
+        # counter not equal to iteration count
+        ADD r6, r6, r9
 
-	# repeat
-	B multiply
+        # increment counter
+        ADD r7, #1
+
+        # repeat
+        B multiply
 
 
-print: 
-	LDR r0, =output
-	MOV r1, r6
-	BL printf
-	
-	B end
+print:
+        LDR r0, =output
+        MOV r1, r6
+        BL printf
+
+        B end
 
 
 eq1:
-	# user iteration equals 1
-	LDR r0, =output
-	MOV r1, r9
-	BL printf
-	
+        # user iteration equals 1
+        LDR r0, =output
+        MOV r1, r9
+        BL printf
+
 end:
 
-	# Return to the OS
+        # Return to the OS
         ldr lr, [sp, #0]
         add sp, sp, #4
         mov pc, lr
@@ -104,15 +108,14 @@ end:
 # End main
 
 .data
- 	# -----------------------------------------------
+        # -----------------------------------------------
 
-	prompt1: .asciz "Please enter the number you want multiplied: "
-	prompt2: .asciz "Please enter the number you want to multiply by: "
+        prompt1: .asciz "Please enter the number you want multiplied: "
+        prompt2: .asciz "Please enter the number you want to multiply by: "
 
-	input: 	.asciz "%d"
-	
-	output:	.asciz "The output is %d.\n"
+        input:  .asciz "%d"
 
-	in1:	.word 0
-	in2:	.word 0
+        output: .asciz "The output is %d.\n"
 
+        in1:    .word 0
+        in2:    .word 0
