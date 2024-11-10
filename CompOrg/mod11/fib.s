@@ -23,7 +23,7 @@ main:
 
 	# Read user input
 	LDR r0, =input
-	LDR r1, in1
+	LDR r1, =in1
 	BL scanf
 
 	# save input
